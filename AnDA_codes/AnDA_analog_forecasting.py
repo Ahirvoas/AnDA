@@ -119,31 +119,6 @@ def AnDA_analog_forecasting(x, AF):
                     Error: choose AF.regression between \
                     'locally_constant', 'increment', 'local_linear' """)
             
-            '''
-            # method "globally-linear" (to finish)
-            elif (AF.regression == 'global_linear'):
-                ### REMARK: USE i_var_neighboor IN THE FUTURE! ####
-                xf_mean[i_N,:] = AF.global_linear.predict(np.array([x[i_N,:]]))
-                if n==1:
-                    cov_xf = np.cov((AF.catalog.successors - AF.global_linear.predict(AF.catalog.analogs)).T)[np.newaxis][np.newaxis]
-                else:
-                    cov_xf = np.cov((AF.catalog.successors - AF.global_linear.predict(AF.catalog.analogs)).T)
-            
-            # method "locally-forest" (to finish)
-            elif (AF.regression == 'local_forest'):
-                ### REMARK: USE i_var_neighboor IN THE FUTURE! #### 
-                xf_mean[i_N,:] = AF.local_forest.predict(np.array([x[i_N,:]]))
-                if n==1:
-                    cov_xf = np.cov(((AF.catalog.successors - np.array([AF.local_forest.predict(AF.catalog.analogs)]).T).T))[np.newaxis][np.newaxis]
-                else:
-                    cov_xf = np.cov((AF.catalog.successors - AF.local_forest.predict(AF.catalog.analogs)).T)
-                # weighted mean and covariance
-                #xf_tmp[:,i_var] = AF.local_forest.predict(AF.catalog.analogs[np.ix_(index_knn[i_N,:],i_var)]);
-                #xf_mean[i_N,i_var] = np.sum(xf_tmp[:,i_var]*np.repeat(weights[i_N,:][np.newaxis].T,len(i_var),1),0)
-                #E_xf = (xf_tmp[:,i_var]-np.repeat(xf_mean[i_N,i_var][np.newaxis],AF.k,0)).T;
-                #cov_xf = 1.0/(1.0-np.sum(np.power(weights[i_N,:],2)))*np.dot(np.repeat(weights[i_N,:][np.newaxis],len(i_var),0)*E_xf,E_xf.T);
-            '''
-            
             # Gaussian sampling
             if (AF.sampling =='gaussian'):
                 # random sampling from the multivariate Gaussian distribution
